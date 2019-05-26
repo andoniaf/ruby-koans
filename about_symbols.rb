@@ -82,8 +82,8 @@ class AboutSymbols < Neo::Koan
 
   def test_symbols_do_not_have_string_methods
     symbol = :not_a_string
-    assert_equal __, symbol.respond_to?(:each_char)
-    assert_equal __, symbol.respond_to?(:reverse)
+    assert_equal false, symbol.respond_to?(:each_char)
+    assert_equal false, symbol.respond_to?(:reverse)
   end
 
   # It's important to realize that symbols are not "immutable
@@ -92,16 +92,25 @@ class AboutSymbols < Neo::Koan
 
   def test_symbols_cannot_be_concatenated
     # Exceptions will be pondered further down the path
-    assert_raise(___) do
+    assert_raise(NoMethodError) do
       :cats + :dogs
     end
   end
 
   def test_symbols_can_be_dynamically_created
-    assert_equal __, ("cats" + "dogs").to_sym
+    assert_equal :catsdogs, ("cats" + "dogs").to_sym
   end
 
   # THINK ABOUT IT:
   #
   # Why is it not a good idea to dynamically create a lot of symbols?
+  #   https://stackoverflow.com/questions/4573991/why-is-it-not-a-good-idea-to-dynamically-create-a-lot-of-symbols-in-ruby
+  #   
+  #  Symbols are like strings but they are immutable - they can't be modified.
+  #
+  #  They are only put into memory once, making them very efficient to use for things 
+  #   like keys in hashes but they stay in memory until the program exits. This makes 
+  #   them a memory hog if you misuse them.
+  #  If you dynamically create lots of symbols, you are allocating a lot of memory 
+  #   that can't be freed until your program ends.
 end
