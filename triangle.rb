@@ -15,10 +15,10 @@
 #
 def triangle(a, b, c)
   # WRITE THIS CODE
+  a, b, c = [a, b, c].sort
   sides = [a, b, c]
 
-  raise TriangleError if a + b <= c
-  raise TriangleError unless sides.all?(&:positive?)
+  raise TriangleError if a <= 0 || a + b <= c
 
   return :equilateral if sides.uniq.length == 1
   return :isosceles if sides.uniq.length == 2
