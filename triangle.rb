@@ -20,9 +20,7 @@ def triangle(a, b, c)
 
   raise TriangleError if a <= 0 || a + b <= c
 
-  return :equilateral if sides.uniq.length == 1
-  return :isosceles if sides.uniq.length == 2
-  return :scalene if sides.uniq.length == 3
+  [nil, :equilateral, :isosceles, :scalene][sides.uniq.length]
 end
 
 # Error class used in part 2.  No need to change this code.
