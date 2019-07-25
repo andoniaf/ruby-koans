@@ -17,6 +17,9 @@ def triangle(a, b, c)
   # WRITE THIS CODE
   sides = [a, b, c]
 
+  raise TriangleError if a + b <= c
+  raise TriangleError unless sides.all?(&:positive?)
+
   return :equilateral if sides.uniq.length == 1
   return :isosceles if sides.uniq.length == 2
   return :scalene if sides.uniq.length == 3
